@@ -219,15 +219,135 @@ namespace ADO.NetEmployeePayrollService
             }
 
         }
+        public int CountOfEntries()
+        {
 
+            try
+            {
+                using (this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    this.connection.Open();
+                    string query = @"Select count(*) from employee_payroll where Gender='F';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    object res = cmd.ExecuteScalar();
+
+                    this.connection.Close();
+                    int Count = (int)res;
+                    return Count;
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+
+        }
+        public decimal AverageOfSalary()
+        {
+
+            try
+            {
+                using (this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    this.connection.Open();
+                    string query = @"Select Avg(NetPay) from employee_payroll where Gender='F';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    object res = cmd.ExecuteScalar();
+
+                    this.connection.Close();
+                    decimal Avg = (decimal)res;
+                    return Avg;
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+
+        }
+        public decimal SumOfSalary()
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    this.connection.Open();
+                    string query = @"Select Sum(NetPay) from employee_payroll where Gender='F';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    object res = cmd.ExecuteScalar();
+
+                    this.connection.Close();
+                    decimal sum = (decimal)res;
+                    return sum;
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public decimal MinimumOfSalary()
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    this.connection.Open();
+                    string query = @"Select Min(NetPay) from employee_payroll where Gender='F';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    object res = cmd.ExecuteScalar();
+
+                    this.connection.Close();
+                    decimal sum = (decimal)res;
+                    return sum;
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+    
+        public decimal MaximumOfSalary()
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    this.connection.Open();
+                    string query = @"Select Max(NetPay) from employee_payroll where Gender='M';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    object res = cmd.ExecuteScalar();
+
+                    this.connection.Close();
+                    decimal sum = (decimal)res;
+                    return sum;
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
-}         
+    
+}
 
 
 
 
-
-        
 
 
 
