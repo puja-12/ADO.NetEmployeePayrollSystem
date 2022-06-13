@@ -19,9 +19,9 @@ namespace ADO.NetEmployeePayrollService
                 EmployeeModel employee = new EmployeeModel();
                 //repo.GetAllEmployee();
 
-            employee.Name = "Mansi";
+           /*employee.Name = "Terrisa";
            
-            employee.Start_Date = "05-05-2019";
+           employee.Start_Date = "05-05-2019";
             employee.GENDER = 'F';
             employee.Phone = "0123586489";
             employee.address = "3-161-21";
@@ -32,7 +32,8 @@ namespace ADO.NetEmployeePayrollService
             employee.IncomeTax = 5000;
             employee.NetPay = 25000;
 
-            repo.AddEmployee(employee);
+            repo.AddEmployee(employee);*/
+            repo.updateSalary();
 
 
 

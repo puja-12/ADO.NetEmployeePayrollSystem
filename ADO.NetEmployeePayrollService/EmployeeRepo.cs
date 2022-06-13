@@ -12,6 +12,7 @@ namespace ADO.NetEmployeePayrollService
     {
 
         SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-DMPB7U8\MSSQLSERVER01; Initial Catalog =payroll_service; Integrated Security = True;");
+        EmployeeModel employee = new EmployeeModel();
 
         public void GetAllEmployee()
         {
@@ -40,7 +41,7 @@ namespace ADO.NetEmployeePayrollService
                         {
                             employeeModel.id = dr.GetInt32(0);
                             employeeModel.Name = dr.GetString(1);
-                           // employeeModel.Start_Date = dr.GetDateTime(2);
+                            // employeeModel.Start_Date = dr.GetDateTime(2);
                             //employeeModel.GENDER = Convert.ToChar(dr.GetString(3));
                             //employeeModel.Phone = dr.GetString(4);
                             //employeeModel.address = dr.GetString(5);
@@ -88,7 +89,7 @@ namespace ADO.NetEmployeePayrollService
                     SqlCommand command = new SqlCommand("SpAddEmployeeDetails", this.connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Name", model.Name);
-                 
+
                     command.Parameters.AddWithValue("@Start_Date", model.Start_Date);
                     command.Parameters.AddWithValue("@GENDER", model.GENDER);
                     command.Parameters.AddWithValue("@Phone", model.Phone);
@@ -119,5 +120,46 @@ namespace ADO.NetEmployeePayrollService
                 this.connection.Close();
             }
         }
+          
+        public decimal updateSalary()
+        {
+          
+                SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-DMPB7U8\MSSQLSERVER01; Initial Catalog =payroll_service; Integrated Security = True;");
+
+                connection.Open();
+                SqlCommand command = new SqlCommand("update employee_payroll set BasicPay=3000000 where Name='Terrisa'", connection);
+                Console.WriteLine("salary updated");
+              
+                int result = command.ExecuteNonQuery();
+                if (result == 1)
+                {
+                    string query = @"Select BasicPay from employee_payroll where Name='Terrisa';";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    object res = cmd.ExecuteScalar();
+                    connection.Close();
+                    employee.BasicPay = (decimal)res;
+                }
+                connection.Close();
+                return (employee.BasicPay);
+
+                connection.Close();
+
+               
+
+
+            }
+          
+          
+        
+        }
     }
-}
+
+
+
+
+        
+
+
+
+
+
