@@ -19,21 +19,22 @@ namespace ADO.NetEmployeePayrollService
                 EmployeeModel employee = new EmployeeModel();
                 //repo.GetAllEmployee();
 
-           /*employee.Name = "Terrisa";
+                /*employee.Name = "Terrisa";
            
-           employee.Start_Date = "05-05-2019";
-            employee.GENDER = 'F';
-            employee.Phone = "0123586489";
-            employee.address = "3-161-21";
-            employee.department = "Hr";
-            employee.BasicPay = 22000;
-            employee.Deduction = 1500;
-            employee.TaxablePay = 200;
-            employee.IncomeTax = 5000;
-            employee.NetPay = 25000;
+                employee.Start_Date = "05-05-2019";
+                employee.GENDER = 'F';
+                employee.Phone = "0123586489";
+                employee.address = "3-161-21";
+                employee.department = "Hr";
+                employee.BasicPay = 22000;
+                employee.Deduction = 1500;
+                employee.TaxablePay = 200;
+                employee.IncomeTax = 5000;
+                employee.NetPay = 25000;
 
-            repo.AddEmployee(employee);*/
-            repo.updateSalary();
+                repo.AddEmployee(employee);*/
+                // repo.updateSalary();
+                repo.GetEmployeedetails_with_StartDate();
 
 
 

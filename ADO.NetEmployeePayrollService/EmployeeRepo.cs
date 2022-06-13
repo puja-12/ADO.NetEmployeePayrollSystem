@@ -12,7 +12,6 @@ namespace ADO.NetEmployeePayrollService
     {
 
         SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-DMPB7U8\MSSQLSERVER01; Initial Catalog =payroll_service; Integrated Security = True;");
-        EmployeeModel employee = new EmployeeModel();
 
         public void GetAllEmployee()
         {
@@ -120,39 +119,110 @@ namespace ADO.NetEmployeePayrollService
                 this.connection.Close();
             }
         }
-          
+
         public decimal updateSalary()
         {
-          
-                SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-DMPB7U8\MSSQLSERVER01; Initial Catalog =payroll_service; Integrated Security = True;");
+            EmployeeModel employee = new EmployeeModel();
 
-                connection.Open();
-                SqlCommand command = new SqlCommand("update employee_payroll set BasicPay=3000000 where Name='Terrisa'", connection);
-                Console.WriteLine("salary updated");
-              
-                int result = command.ExecuteNonQuery();
-                if (result == 1)
-                {
-                    string query = @"Select BasicPay from employee_payroll where Name='Terrisa';";
-                    SqlCommand cmd = new SqlCommand(query, connection);
-                    object res = cmd.ExecuteScalar();
-                    connection.Close();
-                    employee.BasicPay = (decimal)res;
-                }
+            SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-DMPB7U8\MSSQLSERVER01; Initial Catalog =payroll_service; Integrated Security = True;");
+
+            connection.Open();
+            SqlCommand command = new SqlCommand("update employee_payroll set BasicPay=3000000 where Name='Terrisa'", connection);
+            Console.WriteLine("salary updated");
+
+            int result = command.ExecuteNonQuery();
+            if (result == 1)
+            {
+                string query = @"Select BasicPay from employee_payroll where Name='Terrisa';";
+                SqlCommand cmd = new SqlCommand(query, connection);
+                object res = cmd.ExecuteScalar();
                 connection.Close();
-                return (employee.BasicPay);
-
-                connection.Close();
-
-               
-
-
+                employee.BasicPay = (decimal)res;
             }
-          
-          
-        
+            connection.Close();
+            return (employee.BasicPay);
+
+            connection.Close();
+
+
+
+
         }
+
+        public void GetEmployeedetails_with_StartDate()
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    EmployeeModel employeeModel = new EmployeeModel();
+
+                    string query = @"select * from employee_payroll where Start_Date BETWEEN cast('2019-01-01' as date) and CAST('2022-05-04' as date);";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+
+                    this.connection.Open();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+
+                            employeeModel.id = dr.GetInt32(0);
+                            employeeModel.Name = dr.GetString(1);
+                            employeeModel.Start_Date = dr.GetDateTime(2);
+                            employeeModel.GENDER = Convert.ToChar(dr.GetString(3));
+                            employeeModel.Phone = dr.GetString(4);
+                            employeeModel.address = dr.GetString(5);
+                            employeeModel.department = dr.GetString(6);
+                            employeeModel.BasicPay = dr.GetDecimal(7);
+                            employeeModel.Deduction = dr.GetDecimal(8);
+                            employeeModel.TaxablePay = dr.GetDecimal(9);
+                            employeeModel.IncomeTax = dr.GetDecimal(10);
+                            employeeModel.NetPay = dr.GetDecimal(11);
+
+
+                            Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}",
+
+                            employeeModel.id,
+                            employeeModel.Name,
+                            employeeModel.Start_Date,
+                            employeeModel.GENDER,
+                            employeeModel.Phone,
+                            employeeModel.address,
+                            employeeModel.department,
+                            employeeModel.BasicPay,
+                            employeeModel.Deduction,
+                            employeeModel.TaxablePay,
+                            employeeModel.IncomeTax,
+                            employeeModel.NetPay
+                            );
+                            Console.WriteLine("\n");
+
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("No data found");
+                    }
+                    //close data reader
+                    dr.Close();
+
+                    this.connection.Close();
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        }
+
     }
+}         
+
 
 
 
