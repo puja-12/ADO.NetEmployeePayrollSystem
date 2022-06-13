@@ -11,7 +11,7 @@ namespace ADO.NetEmployeePayrollService
     
         public int id { get; set; }
         public string Name { get; set; }
-        public DateTime Start_Date { get; set; }
+        public string Start_Date { get; set; }
         public char GENDER { get; set; }
         public string Phone { get; set; }
         public string address { get; set; }

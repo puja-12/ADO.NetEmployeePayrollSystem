@@ -40,12 +40,12 @@ namespace ADO.NetEmployeePayrollService
                         {
                             employeeModel.id = dr.GetInt32(0);
                             employeeModel.Name = dr.GetString(1);
-                            employeeModel.Start_Date = dr.GetDateTime(2);
-                            employeeModel.GENDER = Convert.ToChar(dr.GetString(3));
-                            employeeModel.Phone = dr.GetString(4);
-                            employeeModel.address = dr.GetString(5);
-                            employeeModel.department = dr.GetString(6);
-                            employeeModel.BasicPay = dr.GetDecimal(7);
+                           // employeeModel.Start_Date = dr.GetDateTime(2);
+                            //employeeModel.GENDER = Convert.ToChar(dr.GetString(3));
+                            //employeeModel.Phone = dr.GetString(4);
+                            //employeeModel.address = dr.GetString(5);
+                            //employeeModel.department = dr.GetString(6);
+                            //employeeModel.BasicPay = dr.GetDecimal(7);
                             //employeeModel.Deduction = dr.GetDecimal(8);
                             //employeeModel.TaxablePay = dr.GetDecimal(9);
                             //employeeModel.IncomeTax = dr.GetDecimal(10);
@@ -53,7 +53,7 @@ namespace ADO.NetEmployeePayrollService
 
 
                             //display retrieve record
-                            Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7}", employeeModel.id, employeeModel.Name,employeeModel.Start_Date,employeeModel.GENDER,employeeModel.Phone,employeeModel.address,employeeModel.department,employeeModel.BasicPay);
+                            Console.WriteLine("{0},{1}", employeeModel.id, employeeModel.Name);
                             Console.WriteLine("\n");
 
                         }
@@ -79,6 +79,45 @@ namespace ADO.NetEmployeePayrollService
             }
 
         }
+        public bool AddEmployee(EmployeeModel model)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    SqlCommand command = new SqlCommand("SpAddEmployeeDetails", this.connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Name", model.Name);
+                 
+                    command.Parameters.AddWithValue("@Start_Date", model.Start_Date);
+                    command.Parameters.AddWithValue("@GENDER", model.GENDER);
+                    command.Parameters.AddWithValue("@Phone", model.Phone);
+                    command.Parameters.AddWithValue("@address", model.address);
+                    command.Parameters.AddWithValue("@department", model.department);
+                    command.Parameters.AddWithValue("@BasicPay", model.BasicPay);
+                    command.Parameters.AddWithValue("@Deduction", model.Deduction);
+                    command.Parameters.AddWithValue("@TaxablePay", model.TaxablePay);
+                    command.Parameters.AddWithValue("@IncomeTax", model.IncomeTax);
+                    command.Parameters.AddWithValue("@NetPay", model.NetPay);
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
 
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }
