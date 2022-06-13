@@ -46,6 +46,9 @@ namespace ADO.NetEmployeePayrollService
                         repo.updateSalary();
 
                         break;
+                    case 5:
+                        repo.GetEmployeedetails_with_StartDate();
+                        break;
                     case 6:
                         while (true)
                         {
