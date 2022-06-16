@@ -28,9 +28,23 @@ namespace ADO.NetEmployeePayrollService
         {
             employeePayrollDetailList.Add(emp);
         }
-        
+        public void addEmployeeToPayrollWithThread(List<Employee_Model2> employeePayrollDataList)
+        {
+            employeePayrollDataList.ForEach(employeeData =>
+            {
+                Task thread = new Task(() =>
+                {
+                    Console.WriteLine("Employee being added: " + employeeData.Name);
+                    this.addEmployeePayroll(employeeData);
+                    Console.WriteLine("Employee Added: " + employeeData.Name);
+                });
+                thread.Start();
+            });
+            Console.WriteLine(this.employeePayrollDetailList.Count);
+        }
+
 
     }
 
 
-    }
+}

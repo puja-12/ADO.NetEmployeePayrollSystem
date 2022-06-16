@@ -19,7 +19,7 @@ namespace ADO.NetEmployeePayrollService
             EmployeeModel employee = new EmployeeModel();
             while (true)
             {
-                Console.WriteLine("Choose the option :\n1)Create/connect database\n2)Retrieve values from Database and insert\n3)Update salary\n5)Get details of employess using particulare date range\n6)Aggregate functions\n7)Add employee without thread");
+                Console.WriteLine("Choose the option :\n1)Create/connect database\n2)Retrieve values from Database and insert\n3)Update salary\n5)Get details of employess using particulare date range\n6)Aggregate functions\n7))Operation With Thread Add Multiple Details");
                 int option = Convert.ToInt16(Console.ReadLine());
                 switch (option)
                 {
@@ -87,8 +87,11 @@ namespace ADO.NetEmployeePayrollService
                                     DateTime stopDateTime = DateTime.Now;
                                     Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
 
-                               
-                                break;
+                                    DateTime startDateTimeThread = DateTime.Now;
+                                    employeePayrollOperations.addEmployeeToPayrollWithThread(employeeDetails);
+                                    DateTime stopDateTimeThread = DateTime.Now;
+                                    Console.WriteLine("Duration with Thread: " + (stopDateTimeThread - startDateTimeThread));
+                                 break;
                                 default:
                                     Console.WriteLine("Please choose the correct option");
                                     break;
