@@ -19,7 +19,7 @@ namespace ADO.NetEmployeePayrollService
             EmployeeModel employee = new EmployeeModel();
             while (true)
             {
-                Console.WriteLine("Choose the option :\n1)Create/connect database\n2)Retrieve values from Database and insert\n3)Update salary\n5)Get details of employess using particulare date range\n6)Aggregate functions");
+                Console.WriteLine("Choose the option :\n1)Create/connect database\n2)Retrieve values from Database and insert\n3)Update salary\n5)Get details of employess using particulare date range\n6)Aggregate functions\n7)Add employee without thread");
                 int option = Convert.ToInt16(Console.ReadLine());
                 switch (option)
                 {
@@ -76,7 +76,19 @@ namespace ADO.NetEmployeePayrollService
                                     decimal maximum = repo.MaximumOfSalary();
                                     Console.WriteLine("Maximum of salaries is :" + maximum);
                                     break;
+                            }
+                        }
+                                case 7:
+                                    Console.WriteLine("Welcome To Employee Payroll Using Thread Problem");
+                                    List<Employee_Model2> employeeDetails = new List<Employee_Model2>();
+                                    EmployeePayrollOperations employeePayrollOperations = new EmployeePayrollOperations();
+                                    DateTime startDateTime = DateTime.Now;
+                                    employeePayrollOperations.addEmployeeToPayroll(employeeDetails);
+                                    DateTime stopDateTime = DateTime.Now;
+                                    Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
 
+                               
+                                break;
                                 default:
                                     Console.WriteLine("Please choose the correct option");
                                     break;
@@ -85,8 +97,8 @@ namespace ADO.NetEmployeePayrollService
                 }
             }
         }
-    }
-}
+    
+
 
 
 
